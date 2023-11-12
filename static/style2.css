@@ -94,6 +94,18 @@ input#searchInput {
     border: 1px solid #333;
 }
 
+.trackButton {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.trackButton:hover {
+    background-color: #217dbb;
+}
+
 #flightList td {
     padding: 10px;
     text-align: center;
