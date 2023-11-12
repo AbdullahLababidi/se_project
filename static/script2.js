@@ -34,8 +34,8 @@ function displayFlightData() {
             flight.Country.toLowerCase().includes(searchTerm) ||
             flight.City.toLowerCase().includes(searchTerm)
         ) {
-	    let typeClass;
-	    typeClass = "flightStatus1";
+            let typeClass;
+            typeClass = "flightStatus1";
             let statusClass;
             if (flight.Status === 1) statusClass = "flightStatus1";
             else if (flight.Status === 2) statusClass = "flightStatus2";
@@ -54,12 +54,16 @@ function displayFlightData() {
                 <td class="flightData">${flight.Country}</td>
                 <td class="flightData">${flight.City}</td>
                 <td class="flightData ${statusClass}">${getStatusText(flight.Status)}</td>
+                <td class="flightData">
+                    <button class="trackButton">Track</button>
+                </td>
             `;
 
             flightList.appendChild(newRow);
         }
     });
 }
+
 
 function getTypeText(type) {
     switch (type) {
