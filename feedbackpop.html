@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Rating stars styling */
+    .rating-container {
+      display: inline-block;
+    }
+
+    .rating-star {
+      font-size: 24px;
+      color: #ddd; /* Default star color */
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .rating-star:hover,
+    .rating-star.active {
+      color: #fdd835; /* Golden star color on hover and when selected */
+    }
+  </style>
+  <title>Feedback Form</title>
+</head>
+<body>
+
+<div class="container mt-5">
+  <button class="btn btn-outline-primary text-dark" id="feedbackButton">Leave Feedback</button>
+</div>
+
+<!-- Feedback Modal -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="feedbackModalLabel">Feedback</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="feedbackForm">
+          <div class="form-group">
+            <label for="rating">Rating:</label>
+            <div class="rating-container">
+              <span class="rating-star" data-rating="1">&#9733;</span>
+              <span class="rating-star" data-rating="2">&#9733;</span>
+              <span class="rating-star" data-rating="3">&#9733;</span>
+              <span class="rating-star" data-rating="4">&#9733;</span>
+              <span class="rating-star" data-rating="5">&#9733;</span>
+            </div>
+            <input type="hidden" id="rating" name="rating" required>
+          </div>
+          <div class="form-group">
+            <label for="comment">Comment (optional):</label>
+            <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+ // Wait for the DOM to be ready
+ document.addEventListener("DOMContentLoaded", function () {
+    // Get the feedback button and modal
+    const feedbackButton = document.getElementById("feedbackButton");
+    const feedbackModal = new bootstrap.Modal(document.getElementById("feedbackModal"));
+
+    // Add click event listener to the feedback button
+    feedbackButton.addEventListener("click", function () {
+      // Show the feedback modal
+      feedbackModal.show();
+    });
+
+    // Get the rating stars
+    const ratingStars = document.querySelectorAll('.rating-star');
+
+    // Add mouseover event listener to the rating stars
+    ratingStars.forEach(star => {
+      star.addEventListener('mouseover', function () {
+        // Remove 'active' class from all stars
+        ratingStars.forEach(s => s.classList.remove('active'));
+
+        // Add 'active' class to the hovered star and stars before it
+        const hoveredRating = this.getAttribute('data-rating');
+        for (let i = 0; i < hoveredRating; i++) {
+          ratingStars[i].classList.add('active');
+        }
+      });
+
+      // Add mouseout event listener to reset stars on mouseout
+      star.addEventListener('mouseout', function () {
+        // Remove 'active' class from all stars
+        ratingStars.forEach(s => s.classList.remove('active'));
+
+        // Add 'active' class to stars based on the selected rating
+        const selectedRating = document.getElementById('rating').value;
+        for (let i = 0; i < selectedRating; i++) {
+          ratingStars[i].classList.add('active');
+        }
+      });
+
+      // Add click event listener to the rating stars
+      star.addEventListener('click', function () {
+        // Remove 'active' class from all stars
+        ratingStars.forEach(s => s.classList.remove('active'));
+
+        // Add 'active' class to the clicked star and stars before it
+        const selectedRating = this.getAttribute('data-rating');
+        for (let i = 0; i < selectedRating; i++) {
+          ratingStars[i].classList.add('active');
+        }
+
+        // Update the selected rating in the hidden input
+        document.getElementById('rating').value = selectedRating;
+      });
+    });
+
+    // Get the feedback form
+    const feedbackForm = document.getElementById("feedbackForm");
+
+    // Add submit event listener to the feedback form
+    feedbackForm.addEventListener("submit", function (event) {
+      // Prevent the default form submission
+      event.preventDefault();
+
+      // Get the selected rating and comment
+      const rating = document.getElementById("rating").value;
+      const comment = document.getElementById("comment").value;
+
+      // You can send the feedback data to your server or perform other actions here
+
+      // Close the modal
+      feedbackModal.hide();
+    });
+  });
+</script>
+</body>
+</html>
