@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Info</title>
+    <link rel="stylesheet" href="static/css/flight_info.css">
+</head>
+
+
+<body>
+
+<div id="image-container">
+    <img src="../static/images/Niew project (1).jpg" alt="Header Image">
+    <section id="search-section">
+        <div id="header-container">
+            <h2>PASSENGER ARRIVALS</h2>
+            <p>Keep track of arriving passenger flights with live updates.</p>
+        </div>
+        <form id="search-form">
+            <label for="flight-search-input">Flight Number, Country, or City:</label>
+            <input type="text" id="flight-search-input" name="flightSearchInput" oninput="filterFlights()">
+
+            <label for="date-dropdown">Select Date:</label>
+            <select id="date-dropdown" name="date" onchange="filterFlights()">
+
+                <option value="Today">Today</option>
+                <option value="Tomorrow">Tomorrow</option>
+                <option value="Day after tomorrow">Day after tomorrow</option>
+            </select>
+
+            <label for="time-dropdown">Select Time:</label>
+            <select id="time-dropdown" name="time" onchange="filterFlights()">
+            </select>
+
+            <div class="toggle-switch-container">
+                <span class="toggle-label">Arrival</span>
+                <div id="flight-type-toggle" class="toggle-switch" onclick="toggleFlightType()">
+                    <div class="toggle-switch-slider"></div>
+                </div>
+                <span class="toggle-label">Departure</span>
+            </div>
+        </form>
+        <div id="search-results"></div>
+    </section>
+
+    <div id="lightbox" class="hidden">
+        <div id="modal-content">
+            <span class="close-button" onclick="closeLightbox">&times;</span>
+            <div class="lightbox-header"> Track</div>
+            <div id="in-flight-details"></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="static/js/flight_info.js"></script>
+</body>
+</html>
